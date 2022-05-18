@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark ">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+              <img src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
+              <%= title %>
+            </a>
+            <ul class="nav nav-pills justify-content-around">
+              <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/menu">Menu</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Coupons</a>
+              </li>
+            </ul>
+        </div>
+        <div class="d-flex">
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="material-symbols-outlined">shopping_cart</i></a>
+            </li>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div>
+            <div class="col py-3 mt-2">
+                <div class="d-flex flex-lg-wrap m-auto">
+                    <div class="cart w-100">
+                        <div class="cart-back border-bottom">
+                            <h3>
+                                <a href="/menu" class="text-black text-decoration-none !important">
+                                    <span class="material-symbols-outlined">keyboard_backspace</span>
+                                    Continue Shopping
+                                </a>
+                            </h3>
+                        </div>
+                        <div class="cart_body">
+                            <div class="cart-info">
+                                <div class="cart-title text-center p-2">
+                                    <h2>Shopping Cart</h2>
+                                </div>
+                            </div>
+                            <table class="table table-borderless">
+                                <thead class="border">
+                                    <!-- <th>#</th> -->
+                                    <th>Meal Name</th>
+                                    <th>Price</th>
+                                    <th></th>
+                                </thead>
+                                <tbody>
+                                    <div >
+                                        <form action="/cart/checkout" method="post">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="form-floating">
+                                                        <input type="email" class="form-control" name="username" placeholder="email@email.com" required>
+                                                        <label for="username" class="form-label">Username/Email</label>
+                                                    </div>                                                    
+                                                </div>
+                                            </div>
+                                            <% if(items.length) {  
+                                                for(var i = 0; i< items?.length; i++) { %>
+                                                    <tr>
+                                                        <td>
+                                                            <%= items[i].meal_name%>
+                                                            <input type="text" value="<%= items[i].meal_name%>" name="meal_name" >
+                                                        </td>
+                                                        <td>
+                                                            <%= items[i].price%>
+                                                            <input type="text" value="<%= items[i].price%>" name="meal_price" >
+                                                        </td>
+                                                        <td colspan="3">
+                                                            <a class="btn btn-success edit" href="/students/students/edit/<%=items[i].Id%>">Edit</a>                                            
+                                                            <a class="btn btn-danger edit" href="/cart/delete/<%=items[i].cart_id%>">Delete</a>                                            
+                                                        </td>
+                                                    </tr>
+                                                    <% }
+                                                }else { %>
+                                                    <tr class="text-center">
+                                                        <td colspan="3"> No Items in Cart</td>
+                                                    </tr>
+                                                <% } %>
+                                                    <input type="text" name="order_number" id="order_num" value="" style="border: red 2px solid" >
+                                                    
+                                            <input type="submit" value="Checkout">
+                                        </form>
+                                    </div>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let order_num = document.querySelector('#order_num')
+
+        let random = Math.floor(Math.random() * 100) + Date.now()
+        // Math.floor(Math.random() *100) + new Date().toSON().slice(0, 10).split('-').reverse().join('')
+
+        order_num.value = random
+
+    </script>
+</body>
+</html>
